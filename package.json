@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/jeanmfdias/nodejs-rest-api/issues"
   },
-  "homepage": "https://github.com/jeanmfdias/nodejs-rest-api#readme"
+  "homepage": "https://github.com/jeanmfdias/nodejs-rest-api#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
