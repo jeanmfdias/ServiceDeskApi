@@ -1,9 +1,5 @@
-const express = require('express');
+const customExpress = require('./config/custom_express');
 
-const app = express();
+const app = customExpress();
 
 app.listen(3000, () => console.log('server runnig at 3000 port'));
-
-app.get('/calls',  (req, res) => {
-    res.send('you are calls route');
-});
