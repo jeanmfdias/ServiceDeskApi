@@ -1,6 +1,6 @@
 # Service Desk API
 
-## Backend with Nest.js
+## Backend with Java Spring
 
 Database with Postgres
 
