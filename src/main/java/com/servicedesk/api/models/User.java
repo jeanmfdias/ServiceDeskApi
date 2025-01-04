@@ -1,30 +1,48 @@
 package com.servicedesk.api.models;
 
+import jakarta.persistence.*;
+
 import java.sql.Timestamp;
 
+@Entity
+@Table(name = "users")
 public class User {
-    private long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long id;
+
     private String name;
-    private final String email;
+
+    @Column(unique = true, nullable = false)
+    private String email;
+
     private String password;
-    private final long createdAt;
-    private long updatedAt;
 
-    public long getCreatedAt() {
-        return createdAt;
-    }
+    @Column(name = "created_at", nullable = false)
+    private Timestamp createdAt;
 
-    public long getUpdatedAt() {
-        return updatedAt;
-    }
+    @Column(name = "updated_at")
+    private Timestamp updatedAt;
 
-    public void setUpdatedAt(long updatedAt) {
-        this.updatedAt = updatedAt;
+    public User() {
+        this.createdAt = new Timestamp(System.currentTimeMillis());
     }
 
     public User(String email) {
         this.email = email;
-        this.createdAt = new Timestamp(System.currentTimeMillis()).getTime();
+        this.createdAt = new Timestamp(System.currentTimeMillis());
+    }
+
+    public Timestamp getCreatedAt() {
+        return createdAt;
+    }
+
+    public Timestamp getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Timestamp updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     public String getName() {

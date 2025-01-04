@@ -1,16 +1,30 @@
 package com.servicedesk.api.models;
 
 import com.servicedesk.api.models.e.TicketStatus;
+import jakarta.persistence.*;
 
 import java.sql.Timestamp;
 
+@Entity
+@Table(name = "tickets")
 public class Ticket {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
+
     private String description;
+
     private User userOpen;
+
     private User userWork;
+
+    @Enumerated(EnumType.STRING)
     private TicketStatus status;
+
+    @Column(name = "created_at")
     private final long createdAt;
+
+    @Column(name = "updated_at")
     private long updatedAt;
 
     public Ticket(String description) {
