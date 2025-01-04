@@ -1,31 +1,52 @@
 package com.servicedesk.api.entities;
 
 import com.servicedesk.api.entities.e.TicketStatus;
+import jakarta.persistence.*;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
+@Entity
+@Table(name = "tickets")
 public class Ticket {
-    private long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ticket_seq")
+    @SequenceGenerator(name = "ticket_seq", sequenceName = "ticket_sequence", allocationSize = 1)
+    private LocalDateTime id;
 
+    @Column(name = "description", nullable = false, columnDefinition = "TEXT")
     private String description;
 
+    @Transient
     private User userOpen;
 
+    @Transient
     private User userWork;
 
+    @Enumerated(EnumType.STRING)
     private TicketStatus status;
 
-    private long createdAt;
+    @Column(name = "created_at", columnDefinition = "TIMESTAMP")
+    private LocalDateTime createdAt;
 
-    private long updatedAt;
+    @Column(name = "updated_at", columnDefinition = "TIMESTAMP")
+    private LocalDateTime updatedAt;
 
     public Ticket(String description) {
         this.description = description;
-        this.createdAt = new Timestamp(System.currentTimeMillis()).getTime();
+        this.createdAt = LocalDateTime.now();
     }
 
     public Ticket() {
-        this.createdAt = new Timestamp(System.currentTimeMillis()).getTime();
+        this.createdAt = LocalDateTime.now();
+    }
+
+    public LocalDateTime getId() {
+        return id;
+    }
+
+    public void setId(LocalDateTime id) {
+        this.id = id;
     }
 
     public String getDescription() {
@@ -60,15 +81,19 @@ public class Ticket {
         this.status = status;
     }
 
-    public long getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public long getUpdatedAt() {
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(long updatedAt) {
+    public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
 
