@@ -1,15 +1,10 @@
-package com.servicedesk.api.models;
+package com.servicedesk.api.entities;
 
-import com.servicedesk.api.models.e.TicketStatus;
-import jakarta.persistence.*;
+import com.servicedesk.api.entities.e.TicketStatus;
 
 import java.sql.Timestamp;
 
-@Entity
-@Table(name = "tickets")
 public class Ticket {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
 
     private String description;
@@ -18,13 +13,10 @@ public class Ticket {
 
     private User userWork;
 
-    @Enumerated(EnumType.STRING)
     private TicketStatus status;
 
-    @Column(name = "created_at")
-    private final long createdAt;
+    private long createdAt;
 
-    @Column(name = "updated_at")
     private long updatedAt;
 
     public Ticket(String description) {

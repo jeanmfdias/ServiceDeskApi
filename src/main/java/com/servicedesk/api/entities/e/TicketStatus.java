@@ -1,4 +1,4 @@
-package com.servicedesk.api.models.e;
+package com.servicedesk.api.entities.e;
 
 public enum TicketStatus {
     WAITING(1),
