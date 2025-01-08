@@ -2,11 +2,10 @@ package com.servicedesk.api.controllers;
 
 import com.servicedesk.api.entities.User;
 import com.servicedesk.api.repositories.UserRepository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class UserController {
@@ -23,7 +22,13 @@ public class UserController {
     }
 
     @PostMapping(path = "/users")
-    public String save() {
-        return "user save";
+    public User save(@RequestBody User user) {
+        return this.userRepository.save(user);
+    }
+
+    @GetMapping(path = "/users/{id}")
+    public String getOne(@PathVariable Long id) {
+        Optional<User> user = this.userRepository.findById(id);
+        return user.toString();
     }
 }
