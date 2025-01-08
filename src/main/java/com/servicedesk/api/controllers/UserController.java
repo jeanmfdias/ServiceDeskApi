@@ -1,7 +1,10 @@
 package com.servicedesk.api.controllers;
 
 import com.servicedesk.api.entities.User;
+import com.servicedesk.api.exceptions.UserNotFoundException;
 import com.servicedesk.api.repositories.UserRepository;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,19 +19,25 @@ public class UserController {
     }
 
     @GetMapping(path = "/users")
-    public String getAll() {
+    public ResponseEntity<List<User>> getAll() {
         List<User> users = this.userRepository.findAll();
-        return users.toString();
+        return ResponseEntity.status(HttpStatus.OK).body(users);
     }
 
     @PostMapping(path = "/users")
-    public User save(@RequestBody User user) {
-        return this.userRepository.save(user);
+    public ResponseEntity<User> save(@RequestBody User user) {
+        user = this.userRepository.save(user);
+        return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
 
     @GetMapping(path = "/users/{id}")
-    public String getOne(@PathVariable Long id) {
-        Optional<User> user = this.userRepository.findById(id);
-        return user.toString();
+    public ResponseEntity<User> getOne(@PathVariable Long id) {
+        try {
+            User user = this.userRepository.findById(id)
+                    .orElseThrow(() -> new UserNotFoundException(id));
+            return ResponseEntity.status(HttpStatus.OK).body(user);
+        } catch (UserNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new User());
+        }
     }
 }
