@@ -8,29 +8,29 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
-public class UserController {
+@RequestMapping("/users")
+public class UsersController {
     private final UserRepository userRepository;
 
-    public UserController(UserRepository userRepository) {
+    public UsersController(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
-    @GetMapping(path = "/users")
+    @GetMapping(path = "/")
     public ResponseEntity<List<User>> getAll() {
         List<User> users = this.userRepository.findAll();
         return ResponseEntity.status(HttpStatus.OK).body(users);
     }
 
-    @PostMapping(path = "/users")
+    @PostMapping(path = "/")
     public ResponseEntity<User> save(@RequestBody User user) {
         user = this.userRepository.save(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
 
-    @GetMapping(path = "/users/{id}")
+    @GetMapping(path = "/{id}")
     public ResponseEntity<User> getOne(@PathVariable Long id) {
         try {
             User user = this.userRepository.findById(id)
