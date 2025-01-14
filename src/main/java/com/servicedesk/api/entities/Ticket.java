@@ -3,7 +3,6 @@ package com.servicedesk.api.entities;
 import com.servicedesk.api.entities.e.TicketStatus;
 import jakarta.persistence.*;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Entity
@@ -17,10 +16,11 @@ public class Ticket {
     @Column(name = "description", nullable = false, columnDefinition = "TEXT")
     private String description;
 
-    @Transient
+//    @Transient // use to not map on jpa
+    @ManyToOne
     private User userOpen;
 
-    @Transient
+    @ManyToOne
     private User userWork;
 
     @Enumerated(EnumType.STRING)

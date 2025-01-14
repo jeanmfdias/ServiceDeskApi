@@ -3,6 +3,7 @@ package com.servicedesk.api.entities;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -26,6 +27,12 @@ public class User {
 
     @Column(name = "updated_at", columnDefinition = "TIMESTAMP")
     private LocalDateTime updatedAt;
+
+    @OneToMany(mappedBy = "userOpen")
+    private List<Ticket> ticketsOpen;
+
+    @OneToMany(mappedBy = "userWork")
+    private List<Ticket> ticketsWork;
 
     public User() {
         this.createdAt = LocalDateTime.now();
@@ -82,6 +89,22 @@ public class User {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public List<Ticket> getTicketsOpen() {
+        return ticketsOpen;
+    }
+
+    public void setTicketsOpen(List<Ticket> ticketsOpen) {
+        this.ticketsOpen = ticketsOpen;
+    }
+
+    public List<Ticket> getTicketsWork() {
+        return ticketsWork;
+    }
+
+    public void setTicketsWork(List<Ticket> ticketsWork) {
+        this.ticketsWork = ticketsWork;
     }
 
     @Override
