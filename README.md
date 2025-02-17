@@ -6,8 +6,8 @@ Database with Postgres
 
 Steps:
 
-- [ ] Added dotenv
-- [ ] Added method to create users
+- [x] Added dotenv
+- [x] Added method to create users
 - [ ] Added method to create ticket
 - [ ] Added method to interaction on ticket
 - [ ] Added method to login

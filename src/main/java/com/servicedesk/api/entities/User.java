@@ -1,5 +1,6 @@
 package com.servicedesk.api.entities;
 
+import com.servicedesk.api.entities.dto.CreateUserDto;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -41,6 +42,14 @@ public class User {
     public User(String email) {
         this.email = email;
         this.createdAt = LocalDateTime.now();
+    }
+
+    public User(CreateUserDto dto) {
+        this.name = dto.name();
+        this.email = dto.email();
+        this.password = dto.password();
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
     }
 
     public void setId(Long id) {

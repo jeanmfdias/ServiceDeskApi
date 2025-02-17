@@ -1,10 +1,15 @@
 package com.servicedesk.api.controllers;
 
 import com.servicedesk.api.entities.User;
+import com.servicedesk.api.entities.dto.CreateUserDto;
+import com.servicedesk.api.entities.dto.GetUserDto;
 import com.servicedesk.api.exceptions.UserNotFoundException;
 import com.servicedesk.api.repositories.UserRepository;
+import com.servicedesk.api.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,6 +17,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/users")
 public class UsersController {
+
+    @Autowired
+    private UserService userService;
+
     private final UserRepository userRepository;
 
     public UsersController(UserRepository userRepository) {
@@ -24,10 +33,10 @@ public class UsersController {
         return ResponseEntity.status(HttpStatus.OK).body(users);
     }
 
-    @PostMapping(path = "/")
-    public ResponseEntity<User> save(@RequestBody User user) {
-        user = this.userRepository.save(user);
-        return ResponseEntity.status(HttpStatus.CREATED).body(user);
+    @PostMapping
+    public ResponseEntity<GetUserDto> save(@RequestBody CreateUserDto userDto) {
+        var user = userService.save(new User(userDto));
+        return ResponseEntity.status(HttpStatus.CREATED).body(new GetUserDto(user));
     }
 
     @GetMapping(path = "/{id}")
