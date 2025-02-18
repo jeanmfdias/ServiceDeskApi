@@ -7,6 +7,9 @@ import com.servicedesk.api.exceptions.UserNotFoundException;
 import com.servicedesk.api.repositories.UserRepository;
 import com.servicedesk.api.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -27,10 +30,11 @@ public class UsersController {
         this.userRepository = userRepository;
     }
 
-    @GetMapping(path = "/")
-    public ResponseEntity<List<User>> getAll() {
-        List<User> users = this.userRepository.findAll();
-        return ResponseEntity.status(HttpStatus.OK).body(users);
+    @GetMapping
+    public ResponseEntity<Page<GetUserDto>> listAll(@PageableDefault(size = 10, sort = {"name"}) Pageable pagination) {
+        Page<GetUserDto> usersDto = this.userService.findAll(pagination)
+                .map(GetUserDto::new);
+        return ResponseEntity.status(HttpStatus.OK).body(usersDto);
     }
 
     @PostMapping

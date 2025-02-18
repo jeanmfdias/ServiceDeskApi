@@ -1,17 +1,22 @@
 # Service Desk API
 
-## Backend with Java Spring
+## Stack
 
-Database with Postgres
+- Database with Postgres
+- Backend with Java Spring Boot
 
-Steps:
+### Project task list
 
-- [x] Added dotenv
-- [x] Added method to create users
-- [ ] Added method to create ticket
-- [ ] Added method to interaction on ticket
-- [ ] Added method to login
-- [ ] Added Auth on routes
+- [x] Add dotenv
+- [x] Add method to create users
+- [x] Add method to list all users
+- [ ] Add method to get one user
+- [ ] Add method to update a user
+- [ ] Add method to logical delete a user 
+- [ ] Add method to create ticket
+- [ ] Add method to interaction on ticket
+- [ ] Add method to login
+- [ ] Add Auth on routes
 
 ## Frontend with React.js
 

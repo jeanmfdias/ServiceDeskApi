@@ -29,6 +29,9 @@ public class User {
     @Column(name = "updated_at", columnDefinition = "TIMESTAMP")
     private LocalDateTime updatedAt;
 
+    @Column(name = "deleted_at", columnDefinition = "TIMESTAMP")
+    private LocalDateTime deletedAt;
+
     @OneToMany(mappedBy = "userOpen")
     private List<Ticket> ticketsOpen;
 
